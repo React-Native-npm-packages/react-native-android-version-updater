@@ -34,24 +34,24 @@ const {
 updateVersionCodeOnly();
 ```
 
-3. Open your package.json file and add the following scripts:
+2. Open your `package.json` file and add the following scripts:
 
-   ```js
-   "scripts": {
-       "updateVersion": "node update-version-code.js",
-       "updateBoth": "node update-version-both.js"
-   }
-   ```
+```js
+"scripts": {
+    "updateVersion": "node update-version-code.js",
+    "updateBoth": "node update-version-both.js"
+}
+```
 
-4. To update only the versionCode, run the following command:
+3. To update only the versionCode, run the following command:
 
    - `npm run updateVersion`
 
-5. To update both the versionCode and versionName, run the following command:
+4. To update both the `versionCode` and `versionName`, run the following command:
 
    - `npm run updateBoth`
 
-By running the respective script, the versionCode and/or versionName in the build.gradle file located at android/app/build.gradle will be automatically updated.
+By running the respective script, the `versionCode` or `versionName` in the `build.gradle` file located at `android/app/build.gradle` will be automatically updated.
 
 ## License
 
