@@ -69,7 +69,3 @@ This package was inspired by the need for a convenient version updater for React
 For any inquiries or questions, feel free to reach out to us at footios@gmail.com.
 
 Feel free to modify and customize the content to suit your package and add any additional information that you find relevant.
-
-```
-
-```
