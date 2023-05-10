@@ -66,6 +66,6 @@ This package was inspired by the need for a convenient version updater for React
 
 ## Contact
 
-For any inquiries or questions, feel free to reach out to us at footios@gmail.com.
+For any inquiries or questions, feel free to reach out to us at footios76@gmail.com.
 
 Feel free to modify and customize the content to suit your package and add any additional information that you find relevant.
