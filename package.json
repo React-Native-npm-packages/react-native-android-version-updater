@@ -1,12 +1,12 @@
 {
   "name": "react-native-android-version-updater",
-  "version": "1.0.11",
+  "version": "2.0.1",
   "description": "\"React Native Version Updater is a utility package that simplifies the process of updating version codes and version names in your React Native app's Android build.gradle file. It provides a script that can be run to automatically increment the versionCode and versionName values, ensuring seamless version management for your Android releases. Additionally, it offers the flexibility to update both versionCode and versionName or update only the versionCode, depending on your specific needs.\"",
   "main": "updateVersion.cjs",
   "type": "module",
   "scripts": {
     "test": "jest",
-    "prepub": "npx babel updateVersion.ts --out-file updateVersion.cjs"
+    "prepub": "npx babel updateVersion.ts --out-file updateVersion.cjs && npm run test"
   },
   "repository": {
     "type": "git",

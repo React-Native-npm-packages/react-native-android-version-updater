@@ -1,56 +1,111 @@
 import * as fs from "fs";
 import {
-  updateVersionCodeAndName,
-  updateVersionCodeOnly,
-} from "./updateVersion";
+  updateVersionCode,
+  updateBoth,
+  updateMajor,
+} from "./updateVersion.cjs";
 
-const buildGradlePath = "android/app/build.gradle";
+// Mock the fs module functions
+jest.mock("fs");
 
-const mockBuildGradleContents = `
-  versionCode 10
-  versionName "1.2"
-`;
+describe("updateVersionCode", () => {
+  test("should update the versionCode in build.gradle", () => {
+    const readFileSyncMock = jest.spyOn(fs, "readFileSync");
+    const writeFileSyncMock = jest.spyOn(fs, "writeFileSync");
+    const consoleLogMock = jest.spyOn(console, "log");
 
-const createMockBuildGradleFile = () => {
-  fs.writeFileSync(buildGradlePath, mockBuildGradleContents);
-};
+    const buildGradleContents = `versionCode 1
+versionName "1.0"`;
+    const updatedBuildGradleContents = `versionCode 2
+versionName "1.0"`;
 
-const deleteMockBuildGradleFile = () => {
-  fs.unlinkSync(buildGradlePath);
-};
+    readFileSyncMock.mockReturnValueOnce(buildGradleContents);
 
-describe("updateVersionCodeAndName", () => {
-  beforeEach(() => {
-    createMockBuildGradleFile();
-  });
+    updateVersionCode();
 
-  afterEach(() => {
-    deleteMockBuildGradleFile();
-  });
+    expect(readFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      "utf8"
+    );
+    expect(writeFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      updatedBuildGradleContents
+    );
+    expect(consoleLogMock).toHaveBeenCalledWith(
+      "Updated versionCode in build.gradle file."
+    );
 
-  it("should update versionCode and versionName in build.gradle file", () => {
-    updateVersionCodeAndName();
-
-    const updatedBuildGradleContents = fs.readFileSync(buildGradlePath, "utf8");
-    expect(updatedBuildGradleContents).toContain("versionCode 11");
-    expect(updatedBuildGradleContents).toContain('versionName "1.3"');
+    // Restore the mock functions
+    readFileSyncMock.mockRestore();
+    writeFileSyncMock.mockRestore();
+    consoleLogMock.mockRestore();
   });
 });
 
-describe("updateVersionCodeOnly", () => {
-  beforeEach(() => {
-    createMockBuildGradleFile();
+describe("updateBoth", () => {
+  test("should update the versionCode and second number of versionName in build.gradle", () => {
+    const readFileSyncMock = jest.spyOn(fs, "readFileSync");
+    const writeFileSyncMock = jest.spyOn(fs, "writeFileSync");
+    const consoleLogMock = jest.spyOn(console, "log");
+
+    const buildGradleContents = `versionCode 1
+versionName "1.0"`;
+    const updatedBuildGradleContents = `versionCode 2
+versionName "1.1"`;
+
+    readFileSyncMock.mockReturnValueOnce(buildGradleContents);
+
+    updateBoth();
+
+    expect(readFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      "utf8"
+    );
+    expect(writeFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      updatedBuildGradleContents
+    );
+    expect(consoleLogMock).toHaveBeenCalledWith(
+      "Updated versionCode and second number of versionName in build.gradle file."
+    );
+
+    // Restore the mock functions
+    readFileSyncMock.mockRestore();
+    writeFileSyncMock.mockRestore();
+    consoleLogMock.mockRestore();
   });
+});
 
-  afterEach(() => {
-    deleteMockBuildGradleFile();
-  });
+describe("updateMajor", () => {
+  test("should update the versionCode and first number of versionName in build.gradle", () => {
+    const readFileSyncMock = jest.spyOn(fs, "readFileSync");
+    const writeFileSyncMock = jest.spyOn(fs, "writeFileSync");
+    const consoleLogMock = jest.spyOn(console, "log");
 
-  it("should update versionCode in build.gradle file", () => {
-    updateVersionCodeOnly();
+    const buildGradleContents = `versionCode 1
+versionName "1.0"`;
+    const updatedBuildGradleContents = `versionCode 2
+versionName "2.0"`;
 
-    const updatedBuildGradleContents = fs.readFileSync(buildGradlePath, "utf8");
-    expect(updatedBuildGradleContents).toContain("versionCode 11");
-    expect(updatedBuildGradleContents).toContain('versionName "1.2"');
+    readFileSyncMock.mockReturnValueOnce(buildGradleContents);
+
+    updateMajor();
+
+    expect(readFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      "utf8"
+    );
+    expect(writeFileSyncMock).toHaveBeenCalledWith(
+      "android/app/build.gradle",
+      updatedBuildGradleContents
+    );
+    expect(consoleLogMock).toHaveBeenCalledWith(
+      "Updated versionCode and first number of versionName in build.gradle file."
+    );
+
+    // Restore the mock functions
+    readFileSyncMock.mockRestore();
+    writeFileSyncMock.mockRestore();
+    consoleLogMock.mockRestore;
   });
 });
